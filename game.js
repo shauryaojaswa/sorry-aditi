@@ -26,7 +26,7 @@
     { id: 9, category: "sorry", text: "You outsmart diseases for a living. And I thought the same old mistake would go unnoticed. Delusional." },
     { id: 10, category: "sorry", text: "I'm not promising to be perfect. I'm promising to pause before I explode." },
     { id: 11, category: "funny", text: "If patience were a school subject, I'd be in remedial class. With extra homework. Prescribed by a doctor, probably." },
-    { id: 12, category: "sweet", text: "Two years ago you met the guy worth keeping. Last balloon. I'm bringing him back." }
+    { id: 12, category: "sweet", text: "Two years ago you met the guy worth keeping. I'm bringing him back — starting with this balloon." }
   ];
 
   const PALETTES = [
