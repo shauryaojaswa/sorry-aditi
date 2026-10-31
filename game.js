@@ -26,7 +26,7 @@
     { id: 9, category: "sorry", text: "You outsmart diseases for a living. And I thought the same old mistake would go unnoticed. Delusional." },
     { id: 10, category: "sorry", text: "I'm not promising to be perfect. I'm promising to pause before I explode." },
     { id: 11, category: "funny", text: "If patience were a school subject, I'd be in remedial class. With extra homework. Prescribed by a doctor, probably." },
-    { id: 12, category: "funny", text: "Last one. You've got this. So do I. Hopefully." }
+    { id: 12, category: "sweet", text: "Two years ago you met the guy worth keeping. Last balloon. I'm bringing him back." }
   ];
 
   const PALETTES = [
@@ -51,7 +51,7 @@
     hotAttempts: 0,
     hotCalmed: 0,
     breath: null,
-    view: "intro",
+    view: "game",
     completed: false
   };
 
@@ -171,7 +171,7 @@
   function showScreen(name) {
     state.view = name;
     document.body.dataset.screen = name;
-    ["intro", "game", "unlock"].forEach((id) => {
+    ["game", "unlock"].forEach((id) => {
       const section = document.getElementById(id);
       if (!section) return;
       const active = id === name;
@@ -602,7 +602,7 @@
     const url = `${window.location.origin}${window.location.pathname}`;
     const data = {
       title: `Sorry, ${RECIPIENT}`,
-      text: "An apology you can play. 12 balloons, one very nervous sorry.",
+      text: "Twelve balloons, one overdue apology from the guy she met two years ago.",
       url
     };
     try {
@@ -636,15 +636,6 @@
     showToast("Fresh balloons. Same sorry. Maybe better this time.");
   }
 
-  $("#beginBtn").addEventListener("click", () => {
-    ensureAudio();
-    playClick();
-    showScreen("game");
-  });
-  $("#brandLink").addEventListener("click", (event) => {
-    event.preventDefault();
-    showScreen("intro");
-  });
   $("#soundToggle").addEventListener("click", () => {
     state.soundOn = !state.soundOn;
     try { localStorage.setItem(STORAGE_SOUND, state.soundOn ? "on" : "off"); } catch (err) { /* ignore */ }
@@ -670,8 +661,9 @@
     syncConfession();
     buildGrid();
     updateProgress();
-    showScreen("intro");
-    $("#game").inert = true;
+    $("#game").hidden = false;
+    $("#game").inert = false;
+    $("#unlock").hidden = true;
     $("#unlock").inert = true;
     window.matchMedia("(min-width: 981px)").addEventListener("change", syncConfession);
   }
