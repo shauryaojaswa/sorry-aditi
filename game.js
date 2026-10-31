@@ -5,28 +5,28 @@
   const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const BREATH_MS = 1200;
-  const STORAGE_NAME = "apology-recipient";
   const STORAGE_SOUND = "apology-sound";
+  const RECIPIENT = "Aditi";
 
   const CATEGORIES = {
-    joke: { label: "a joke, to soften the blow", short: "joke", color: "#a85b2e", bg: "#fde9d8" },
-    evidence: { label: "evidence for the defence", short: "evidence", color: "#3f6b55", bg: "#e3efe7" },
+    funny: { label: "a joke, to soften the blow", short: "joke", color: "#a85b2e", bg: "#fde9d8" },
+    sweet: { label: "evidence for the defence", short: "evidence", color: "#3f6b55", bg: "#e3efe7" },
     sorry: { label: "the actual sorry", short: "sorry", color: "#a83a5c", bg: "#fde4eb" }
   };
 
   const NOTES = [
-    { id: 1, category: "joke", text: "I could have just said sorry. Instead I built a whole website. Please clap." },
-    { id: 2, category: "sorry", text: "I'm sorry for turning the same mistake into a recurring subscription you never asked for." },
-    { id: 3, category: "evidence", text: "You spend all day being the calm, competent one. You shouldn't have to be that at home too." },
-    { id: 4, category: "joke", text: "I asked a vet how to fix a broken thing. She said, 'Stitch it, don't repeat it.' I'm taking notes." },
-    { id: 5, category: "joke", text: "You save animals all day, then come home to me — the most high-maintenance patient you never signed up for." },
-    { id: 6, category: "joke", text: "You eat the hottest chillies on Earth for fun. My behaviour? Somehow spicier. And not in a good way." },
-    { id: 7, category: "evidence", text: "You work 13-hour shifts saving lives, and I still made myself the hardest part of your day. Fixing that." },
-    { id: 8, category: "evidence", text: "Your eyes are the most beautiful thing I've ever witnessed — and I still made them sad. Peak stupidity." },
+    { id: 1, category: "funny", text: "It's me. Hi. I'm the problem, it's me." },
+    { id: 2, category: "funny", text: "You know what my mouth did? My mouth did that." },
+    { id: 3, category: "sweet", text: "Your eyes could get a judge to drop all charges. Sadly, the judge is you." },
+    { id: 4, category: "sorry", text: "Same mistake twice is a pattern. Three times is a crime. I've stopped counting." },
+    { id: 5, category: "funny", text: "You save animals all day, then come home to me — the most high-maintenance patient you never signed up for." },
+    { id: 6, category: "funny", text: "You eat the hottest chillies on Earth for fun. My behaviour? Somehow spicier. And not in a good way." },
+    { id: 7, category: "sorry", text: "You work 13-hour shifts saving lives, and I still made myself the hardest part of your day. Fixing that." },
+    { id: 8, category: "sweet", text: "Your eyes are the most beautiful thing I've ever witnessed — and I still made them sad. Peak stupidity." },
     { id: 9, category: "sorry", text: "You outsmart diseases for a living. And I thought the same old mistake would go unnoticed. Delusional." },
     { id: 10, category: "sorry", text: "I'm not promising to be perfect. I'm promising to pause before I explode." },
-    { id: 11, category: "joke", text: "If patience were a school subject, I'd be in remedial class. With extra homework. Prescribed by a doctor, probably." },
-    { id: 12, category: "evidence", text: "Last one. You've got this. So do I. Hopefully." }
+    { id: 11, category: "funny", text: "If patience were a school subject, I'd be in remedial class. With extra homework. Prescribed by a doctor, probably." },
+    { id: 12, category: "funny", text: "Last one. You've got this. So do I. Hopefully." }
   ];
 
   const PALETTES = [
@@ -37,15 +37,15 @@
   ];
 
   const LABELS = [
-    { min: 12, label: "forgiven (probation: forever)" },
-    { min: 9, label: "almost there, don't ruin it" },
-    { min: 6, label: "cautiously optimistic" },
-    { min: 3, label: "warming up, suspiciously" },
+    { min: 12, label: "verdict: forgiven (probation: forever)" },
+    { min: 10, label: "almost smiling. almost." },
+    { min: 7, label: "lip corner twitching" },
+    { min: 4, label: "one eyebrow raised" },
+    { min: 1, label: "warming up. barely" },
     { min: 0, label: "highly skeptical" }
   ];
 
   const state = {
-    recipient: "Aditi",
     popped: new Map(),
     soundOn: true,
     hotAttempts: 0,
@@ -142,33 +142,6 @@
       [arr[i], arr[j]] = [arr[j], arr[i]];
     }
     return arr;
-  }
-
-  function nameFromUrl() {
-    const raw = new URLSearchParams(window.location.search).get("to");
-    return raw ? raw.trim().slice(0, 24) : "";
-  }
-
-  function loadRecipient() {
-    const fromUrl = nameFromUrl();
-    if (fromUrl) return fromUrl;
-    try {
-      return localStorage.getItem(STORAGE_NAME) || "Aditi";
-    } catch (err) {
-      return "Aditi";
-    }
-  }
-
-  function applyRecipient(rawName) {
-    const name = (rawName || "").trim().slice(0, 24) || "Aditi";
-    state.recipient = name;
-    $$("[data-recipient]").forEach((el) => { el.textContent = name; });
-    document.title = `Sorry, ${name} — an apology you can play`;
-    const url = new URL(window.location.href);
-    if (name !== "Aditi") url.searchParams.set("to", name);
-    else url.searchParams.delete("to");
-    window.history.replaceState(null, "", url);
-    try { localStorage.setItem(STORAGE_NAME, name); } catch (err) { /* private mode */ }
   }
 
   let toastTimer = 0;
@@ -610,8 +583,9 @@
   function showUnlock() {
     if (state.popped.size !== NOTES.length) return;
     state.completed = true;
+    const hotTotal = NOTES.filter((note) => note.category === "sorry").length;
     const calmResult = $("#calmResult");
-    calmResult.innerHTML = `<strong>3</strong> hot ones, ${state.hotAttempts === 0 ? "handled" : "eventually"}`;
+    calmResult.innerHTML = `<strong>${hotTotal}</strong> hot ones, ${state.hotAttempts === 0 ? "handled" : "eventually"}`;
     const today = new Intl.DateTimeFormat("en-GB", {
       day: "numeric", month: "long", year: "numeric"
     }).format(new Date());
@@ -623,46 +597,13 @@
     }, 260);
   }
 
-  /* -------------------------- personalize -------------------------- */
-  function openPersonalize() {
-    $("#nameInput").value = state.recipient;
-    openModal($("#personalizeModal"), $("#nameInput"));
-    window.setTimeout(() => {
-      const input = $("#nameInput");
-      input.focus({ preventScroll: true });
-      input.select();
-    }, 110);
-  }
-
-  function saveName() {
-    const value = $("#nameInput").value.trim().slice(0, 24) || "Aditi";
-    applyRecipient(value);
-    closeModal($("#personalizeModal"));
-    showToast("Saved. It's personal now.");
-  }
-
-  $("#personalizeBtn").addEventListener("click", openPersonalize);
-  $("#editNameBtn").addEventListener("click", openPersonalize);
-  $("#personalizeClose").addEventListener("click", () => closeModal($("#personalizeModal")));
-  $("#personalizeCancel").addEventListener("click", () => closeModal($("#personalizeModal")));
-  $("[data-close-personalize]").addEventListener("click", () => closeModal($("#personalizeModal")));
-  $("#personalizeSave").addEventListener("click", saveName);
-  $("#nameInput").addEventListener("keydown", (event) => {
-    if (event.key === "Enter") {
-      event.preventDefault();
-      saveName();
-    }
-  });
-
   /* ---------------------------- actions ---------------------------- */
   async function shareApology() {
-    const url = new URL(window.location.href);
-    if (state.recipient !== "Aditi") url.searchParams.set("to", state.recipient);
-    else url.searchParams.delete("to");
+    const url = `${window.location.origin}${window.location.pathname}`;
     const data = {
-      title: `Sorry, ${state.recipient}`,
+      title: `Sorry, ${RECIPIENT}`,
       text: "An apology you can play. 12 balloons, one very nervous sorry.",
-      url: url.toString()
+      url
     };
     try {
       if (navigator.share) {
@@ -673,7 +614,7 @@
       if (err && err.name === "AbortError") return;
     }
     try {
-      await navigator.clipboard.writeText(url.toString());
+      await navigator.clipboard.writeText(url);
       showToast("Link copied. Send it with your most apologetic face.");
     } catch (err) {
       showToast("Copy this page's URL and send it along.");
@@ -724,9 +665,7 @@
 
   /* ------------------------------ init ----------------------------- */
   function init() {
-    state.recipient = loadRecipient() || "Aditi";
     try { state.soundOn = localStorage.getItem(STORAGE_SOUND) !== "off"; } catch (err) { state.soundOn = true; }
-    applyRecipient(state.recipient);
     syncSoundButton();
     syncConfession();
     buildGrid();

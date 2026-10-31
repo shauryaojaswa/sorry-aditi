@@ -6,6 +6,9 @@
   <title>Sorry, Aditi — an apology you can play</title>
   <meta name="description" content="A hand-made sorry card for Aditi: pop the balloons, read the notes, unlock the real apology." />
   <meta name="theme-color" content="#fff8ef" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="format-detection" content="telephone=no" />
   <meta property="og:title" content="Sorry, Aditi — an apology you can play" />
   <meta property="og:description" content="Pop all 12 balloons to unlock the real sorry. Made with too much guilt and just enough humour." />
   <meta property="og:type" content="website" />
@@ -25,7 +28,7 @@
   </div>
 
   <header class="topbar">
-    <a class="brand" href="#" id="brandLink">a tiny apology <em>game</em></a>
+    <a class="brand" href="#" id="brandLink">for Aditi, <em>obviously</em></a>
     <button class="icon-btn" id="soundToggle" type="button" aria-label="Mute sound" aria-pressed="true">
       <svg class="icon sound-on" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4Z" fill="currentColor"/><path d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
       <svg class="icon sound-off" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4Z" fill="currentColor"/><path d="m16 9 5 5m0-5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
@@ -36,12 +39,11 @@
     <section id="intro" class="screen screen-intro" aria-labelledby="introTitle">
       <div class="intro-inner">
         <p class="eyebrow">an official apology, in website form</p>
-        <h1 id="introTitle">Dear <em data-recipient>Aditi</em>,</h1>
+        <h1 id="introTitle">Dear <em>Aditi</em>,</h1>
         <p class="lede">I messed up. The same way. <em>Again.</em> A text message felt too small for the crime, so here is a whole game where <strong>you</strong> get to shoot down my dignity, one balloon at a time.</p>
         <p class="fineprint">(Pop all 12 balloons. The real sorry is locked behind them. Yes, I made you do chores to earn my apology. Bold, I know.)</p>
         <div class="cta-row">
           <button class="btn btn-primary" id="beginBtn" type="button">Begin the trial <span aria-hidden="true">↓</span></button>
-          <button class="btn btn-ghost" id="personalizeBtn" type="button">Personalize</button>
         </div>
         <div class="intro-meta" aria-hidden="true">
           <span class="meta-balloon b1"></span><span class="meta-balloon b2"></span><span class="meta-balloon b3"></span>
@@ -76,7 +78,7 @@
               <div class="meter-fill" id="meterFill"></div>
               <div class="meter-ticks" aria-hidden="true"></div>
             </div>
-            <p class="hint" id="hotHint"><span class="hint-flame" aria-hidden="true">🔥</span> Three balloons are hot — the actual sorries. Don't pop them in anger. <strong>Press and hold to breathe.</strong></p>
+            <p class="hint" id="hotHint"><span class="hint-flame" aria-hidden="true">🔥</span><span>Four balloons are hot — the actual sorries. Don't pop them in anger. <strong>Press and hold to breathe.</strong></span></p>
             <button class="text-link" id="restartGameBtn" type="button">Start over ↺</button>
           </div>
         </aside>
@@ -96,10 +98,10 @@
     <section id="unlock" class="screen screen-unlock" aria-labelledby="unlockTitle" hidden>
       <div class="unlock-head">
         <p class="eyebrow">unlocked: the real sorry</p>
-        <h1 id="unlockTitle"><span data-recipient>Aditi</span>, <em>I'm sorry.</em></h1>
+        <h1 id="unlockTitle"><span>Aditi</span>, <em>I'm sorry.</em></h1>
         <div class="result-strip" id="resultStrip">
           <span><strong>12</strong> balloons popped</span><span class="dot" aria-hidden="true">·</span>
-          <span id="calmResult"><strong>3</strong> hot ones, handled</span><span class="dot" aria-hidden="true">·</span>
+          <span id="calmResult"><strong>4</strong> hot ones, handled</span><span class="dot" aria-hidden="true">·</span>
           <span><strong>forgiven</strong> (probation: forever)</span>
         </div>
       </div>
@@ -126,11 +128,11 @@
           <div class="cert-border">
             <p class="cert-eyebrow">certificate of forgiveness</p>
             <h2 id="certTitle">Official Record</h2>
-            <p class="cert-body">This certifies that <strong data-recipient>Aditi</strong> — vet doctor, chilli champion, certified genius, owner of the most beautiful eyes in recorded history — is the most beautiful person the issuer has ever witnessed, and that the issuer's repeated stupidity is hereby documented for posterity.</p>
+            <p class="cert-body">This certifies that <strong>Aditi</strong> — vet doctor, chilli champion, certified genius, owner of the most beautiful eyes in recorded history — is the most beautiful person the issuer has ever witnessed, and that the issuer's repeated stupidity is hereby documented for posterity.</p>
             <p class="cert-verdict">FORGIVEN <span>(probation: forever)</span></p>
             <div class="cert-bottom">
               <div class="signature-block">
-                <span class="signature" data-recipient>Aditi</span>
+                <span class="signature">Aditi</span>
                 <span class="sign-line" aria-hidden="true"></span>
                 <span class="sign-label">the forgiving party</span>
               </div>
@@ -144,15 +146,14 @@
       <div class="unlock-actions">
         <button class="btn btn-primary" id="printBtn" type="button">Print the certificate</button>
         <button class="btn btn-ghost" id="shareBtn" type="button">Share this apology</button>
-        <button class="text-link" id="editNameBtn" type="button">Edit name</button>
         <button class="text-link" id="replayBtn" type="button">Start over ↺</button>
       </div>
     </section>
   </main>
 
   <footer class="footer">
-    <p>Made with too much guilt and just enough humour. Balloons may be re-popped in case of future mistakes.</p>
-    <p class="footer-small">a tiny game · <button class="text-link" id="footerRestart" type="button">start over</button></p>
+    <p>Made for Aditi, with too much guilt and just enough humour. Balloons may be re-popped in case of future mistakes.</p>
+    <p class="footer-small">a one-person game · <button class="text-link" id="footerRestart" type="button">start over</button></p>
   </footer>
 
   <div class="modal" id="noteModal" role="dialog" aria-modal="true" aria-labelledby="noteCategory" hidden>
@@ -170,24 +171,6 @@
           <span class="calm-badge" id="calmBadge" hidden>✦ breathed through it</span>
         </div>
         <button class="btn btn-primary btn-sm" id="keepPopping" type="button">Keep popping</button>
-      </div>
-    </div>
-  </div>
-
-  <div class="modal" id="personalizeModal" role="dialog" aria-modal="true" aria-labelledby="personalizeTitle" hidden>
-    <div class="modal-backdrop" data-close-personalize></div>
-    <div class="modal-card personalize-card" role="document">
-      <button class="modal-close" id="personalizeClose" type="button" aria-label="Close">×</button>
-      <p class="eyebrow">make it yours</p>
-      <h2 id="personalizeTitle">Who is this apology for?</h2>
-      <p class="personalize-sub">The name appears in the letter, the certificate, and the signature. No pressure.</p>
-      <label class="field">
-        <span>Their name</span>
-        <input id="nameInput" type="text" maxlength="24" autocomplete="off" spellcheck="false" placeholder="Aditi" />
-      </label>
-      <div class="modal-actions">
-        <button class="btn btn-ghost" id="personalizeCancel" type="button">Cancel</button>
-        <button class="btn btn-primary" id="personalizeSave" type="button">Save</button>
       </div>
     </div>
   </div>

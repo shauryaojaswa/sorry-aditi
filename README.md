@@ -19,8 +19,9 @@ Open `http://localhost:4173/`.
 - Forgiveness meter with changing levels
 - Accessible balloon buttons, focus-trapped modals, reduced-motion support
 - Synthesised pop/breathe sounds with a mute toggle
-- Personalised recipient name (`?to=Priya` also works)
 - Printable certificate, Web Share / clipboard share
 - Mobile-first bottom-sheet modals and two-column balloon grid
+
+Made for Aditi only — no personalization form, no generic template.
 
 No build step, no dependencies, no backend.
